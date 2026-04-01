@@ -22,13 +22,7 @@
   <main>
     <div class="video-container">
       <div class="video-wrapper">
-        <iframe
-          id="video"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+        <div id="player"></div>
       </div>
     </div>
   </main>
@@ -37,10 +31,32 @@
     &copy; 2026 Watch This
   </footer>
 
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
+    var player;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        videoId: 'dQw4w9WgXcQ',
+        playerVars: {
+          playsinline: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0
+        },
+        events: {
+          onReady: function () {
+            // Player is ready, waiting for user click
+          }
+        }
+      });
+    }
+
     function startVideo() {
       document.getElementById('overlay').style.display = 'none';
-      document.getElementById('video').src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
+      if (player && player.playVideo) {
+        player.playVideo();
+      }
     }
   </script>
 </body>
