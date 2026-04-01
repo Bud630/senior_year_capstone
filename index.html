@@ -21,8 +21,7 @@
 
   <main>
     <div class="video-container">
-      <div class="video-wrapper">
-        <div id="player"></div>
+      <div class="video-wrapper" id="video-wrapper">
       </div>
     </div>
   </main>
@@ -31,52 +30,22 @@
     &copy; 2026 Watch This
   </footer>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    var player;
-    var playerReady = false;
-    var userClicked = false;
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        videoId: 'dQw4w9WgXcQ',
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          playsinline: 1,
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          loop: 1,
-          playlist: 'dQw4w9WgXcQ'
-        },
-        events: {
-          onReady: function (event) {
-            playerReady = true;
-            event.target.playVideo();
-            // If user already clicked before player was ready
-            if (userClicked) {
-              unmute();
-            }
-          }
-        }
-      });
-    }
-
-    function unmute() {
-      if (player && player.unMute) {
-        player.unMute();
-        player.setVolume(100);
-      }
-    }
-
     function startVideo() {
       document.getElementById('overlay').style.display = 'none';
-      userClicked = true;
-      if (playerReady) {
-        player.playVideo();
-        unmute();
-      }
+      var wrapper = document.getElementById('video-wrapper');
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('frameborder', '0');
+      iframe.style.position = 'absolute';
+      iframe.style.top = '0';
+      iframe.style.left = '0';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = 'none';
+      wrapper.appendChild(iframe);
     }
   </script>
 </body>
